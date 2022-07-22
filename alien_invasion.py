@@ -43,8 +43,7 @@ class AlienInvasion:
     def run_game(self):
     # Start the main loop for the game
         while True:
-            # insert music
-            # self.music_bg.play()
+            
 
             self.clock.tick(120)
             self._check_events()
@@ -55,6 +54,8 @@ class AlienInvasion:
             # Draw the play button if the game is inactive
             if not self.stats.game_active:
                 self.play_button.draw_button()
+                # insert music
+                self.music_bg.play()
 
             self._update_screen()
             pygame.display.flip()
@@ -94,6 +95,8 @@ class AlienInvasion:
 
             # Hide the mouse cursor
             pygame.mouse.set_visible(False)
+            
+            self.music_bg.stop()
 
     def _check_keydown_events(self,event):
         # Respond to keypress.

@@ -17,6 +17,7 @@ class AlienInvasion:
 
         # Initialize the game, and create game resources.
         pygame.init()
+        pygame.mixer.init()
         self.clock = pygame.time.Clock()
         self.music_bg = pygame.mixer.Sound('sound\music_bg.wav')
         self.music_ship = pygame.mixer.Sound('sound\sound_ship.wav')
@@ -42,6 +43,9 @@ class AlienInvasion:
     def run_game(self):
     # Start the main loop for the game
         while True:
+            # insert music
+            # self.music_bg.play()
+
             self.clock.tick(120)
             self._check_events()
             if self.stats.game_active == True:
@@ -50,8 +54,6 @@ class AlienInvasion:
                 self._update_aliens()
             # Draw the play button if the game is inactive
             if not self.stats.game_active:
-                # insert music
-                self.music_bg.play()
                 self.play_button.draw_button()
 
             self._update_screen()
@@ -113,13 +115,13 @@ class AlienInvasion:
                 file_object.write(str(self.stats.high_score))
             sys.exit()
         elif event.key == pygame.K_SPACE:
-            self.music_ship.play()
             self._fire_bullet()
 
     def _update_screen(self):
         # update images on the screen, and flip to the new screen.
         # Redraw the screen during each pass through the loop
-        self.screen.fill(self.settings.bg_color)
+        # self.screen.fill(self.settings.bg_color)
+        self.screen.blit(self.settings.background,(0,0))
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
@@ -137,6 +139,7 @@ class AlienInvasion:
     def _fire_bullet(self):
         """ Create a new bullet and add it to the bullets group """
         if len(self.bullets) < self.settings.bullets_allowed:
+            self.music_ship.play()
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 

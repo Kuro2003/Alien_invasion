@@ -18,6 +18,7 @@ class AlienInvasion:
         # Initialize the game, and create game resources.
         pygame.init()
         self.clock = pygame.time.Clock()
+        self.music_bg = pygame.mixer.Sound('sound\music_bg.wav')
         pygame.display.set_caption("Alien Invasion")  
         self.settings = Settings() 
         self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
@@ -40,6 +41,9 @@ class AlienInvasion:
     def run_game(self):
     # Start the main loop for the game
         while True:
+            # insert music
+            self.music_bg.play()
+
             self.clock.tick(120)
             self._check_events()
             if self.stats.game_active == True:

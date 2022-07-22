@@ -19,6 +19,7 @@ class AlienInvasion:
         pygame.init()
         self.clock = pygame.time.Clock()
         self.music_bg = pygame.mixer.Sound('sound\music_bg.wav')
+        self.music_ship = pygame.mixer.Sound('sound\sound_ship.wav')
         pygame.display.set_caption("Alien Invasion")  
         self.settings = Settings() 
         self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
@@ -41,9 +42,6 @@ class AlienInvasion:
     def run_game(self):
     # Start the main loop for the game
         while True:
-            # insert music
-            self.music_bg.play()
-
             self.clock.tick(120)
             self._check_events()
             if self.stats.game_active == True:
@@ -52,7 +50,8 @@ class AlienInvasion:
                 self._update_aliens()
             # Draw the play button if the game is inactive
             if not self.stats.game_active:
-                # self._update_screen()
+                # insert music
+                self.music_bg.play()
                 self.play_button.draw_button()
 
             self._update_screen()
@@ -114,6 +113,7 @@ class AlienInvasion:
                 file_object.write(str(self.stats.high_score))
             sys.exit()
         elif event.key == pygame.K_SPACE:
+            self.music_ship.play()
             self._fire_bullet()
 
     def _update_screen(self):
